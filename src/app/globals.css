@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050505;
+  --foreground: #f2f2f2;
+  --accent: #ff4428;
+  --accent-foreground: #050505;
+  --muted: #151515;
+  --muted-foreground: #a3a3a3;
+  --border: rgba(255, 255, 255, 0.08);
+  --card: #0b0b0b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: radial-gradient(
+      circle at top,
+      rgba(255, 68, 40, 0.05),
+      transparent 60%
+    ),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), var(--font-body), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+p {
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--foreground) 90%, transparent);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--foreground);
+}
+
+/*
+ * Category filtering.
+ * All articles are server-rendered into the initial HTML; selecting a category
+ * sets `data-active-filter` on the grid and these rules hide the rest. With
+ * JavaScript disabled every article simply stays visible.
+ */
+.article-filter-grid[data-active-filter="Habitation"]
+  > article:not([data-category="Habitation"]),
+.article-filter-grid[data-active-filter="Science"]
+  > article:not([data-category="Science"]),
+.article-filter-grid[data-active-filter="Technology"]
+  > article:not([data-category="Technology"]),
+.article-filter-grid[data-active-filter="Human Life"]
+  > article:not([data-category="Human Life"]),
+.article-filter-grid[data-active-filter="Missions"]
+  > article:not([data-category="Missions"]) {
+  display: none;
+}
